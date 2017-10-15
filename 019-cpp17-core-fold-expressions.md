@@ -39,7 +39,7 @@ sum(x, args)は1番目の引数をxで、残りをパラメーターパックarg
 
 可変長テンプレートでは任意個の引数に対応するために、このような再帰的なコードが必須になる。
 
-しかし、ここで実現したいこととはN個あるパラメーターパックargsの中身に対して、仮にN番目をargs#Nとする表記を使うと、args#0 + args#1 + ... + args#Nのような展開をしたいだけだ。C++17のfold式はパラメーターパックに対して二項演算子を適用する展開を行う機能だ。
+しかし、ここで実現したいこととはN個あるパラメーターパックargsの中身に対して、仮にN番目をargs#Nとする表記を使うと、args#1 + args#2 + ... + args#Nのような展開をしたいだけだ。C++17のfold式はパラメーターパックに対して二項演算子を適用する展開を行う機能だ。
 
 fold式を使うとsumは以下のように書ける。
 
@@ -51,7 +51,7 @@ auto sum( Types ... args )
 }
 ~~~
 
-( ... + args )は、args#0 + args#1 + ... + args#Nのように展開される。
+( ... + args )は、args#1 + args#2 + ... + args#Nのように展開される。
 
 fold式には、単項fold式と二項fold式がある。そして、演算子の結合順序に合わせて左foldと右foldがある。
 
@@ -102,7 +102,7 @@ T f( T x ) { return x ; }
 template < typename ... Types >
 auto g( Types ... args )
 {
-    // f(args#0) + f(args#1) + ... + f(args#N)
+    // f(args#1) + f(args#2) + ... + f(args#N)
     return ( ... + f(args) )  ;
 }
 ~~~
